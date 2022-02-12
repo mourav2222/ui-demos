@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.nio.channels.SelectableChannel;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.*;
@@ -19,11 +21,15 @@ class MainTest {
 
     @BeforeEach
     void setUp() {
-        Configuration.browser = "firefox";
+//        Configuration.browser = "firefox";
         Configuration.remote = "http://192.168.0.158:4444/wd/hub";
-        DesiredCapabilities cap = new DesiredCapabilities();
-        cap.setCapability("enableVNC", "true");
-        Configuration.browserCapabilities = cap;
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+//        capabilities.setCapability("enableVNC", true);
+        Map<String, Object> map = new HashMap<>();
+        map.put("enableVNC", true);
+        map.put("enableVideo", true);
+        capabilities.setCapability("selenoid:options", map);
+        Configuration.browserCapabilities = capabilities;
     }
 
     @Test
