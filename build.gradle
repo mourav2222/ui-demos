@@ -16,6 +16,7 @@ allure {
 
 dependencies {
 
+    testImplementation 'org.apache.commons:commons-lang3:3.12.0'
     testImplementation 'org.slf4j:slf4j-simple:1.7.35'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'

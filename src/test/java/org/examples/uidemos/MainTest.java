@@ -1,17 +1,15 @@
 package org.examples.uidemos;
 
 import com.codeborne.selenide.*;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariOptions;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import java.net.URL;
-import java.nio.channels.SelectableChannel;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,8 +23,8 @@ class MainTest {
     void setUp() throws Exception {
 //        Configuration.browser = "chrome";
 //        Configuration.browser = "firefox";
-        Configuration.browser = "edge";
-//        Configuration.browser = "safari";
+//        Configuration.browser = "edge";
+        Configuration.browser = "safari";
 
         Configuration.remote = "http://localhost:4444/wd/hub";
 
@@ -44,7 +42,14 @@ class MainTest {
 
         Configuration.browserCapabilities = capabilities;
         if (Configuration.browser.equals("safari")) {
-            Configuration.browserCapabilities = getSafariCaps();
+
+            Configuration.browser = MySafariWebDriverFactory.class.getName();
+
+//            SafariOptions safariOptions = getSafariCaps();
+//            Configuration.browserCapabilities = safariOptions;
+//            URL remote = new URL("http://localhost:4444/wd/hub");
+//            RemoteWebDriver driver = new RemoteWebDriver(remote, safariOptions);
+//            WebDriverRunner.setWebDriver(driver);
         }
 
     }
@@ -77,5 +82,14 @@ class MainTest {
         return safariOptions;
         //RemoteWebDriver driver = new RemoteWebDriver(new URL("http://moon.aerokube.local:4444/wd/hub/"), safariOptions);
         //driver.quit();
+    }
+
+    @AfterEach
+    void tear() {
+
+        if (Configuration.browser.equals("safari")) {
+//            WebDriverRunner.closeWebDriver();
+        }
+
     }
 }
